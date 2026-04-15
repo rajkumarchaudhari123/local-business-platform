@@ -1,13 +1,13 @@
 // app/dashboard/page.tsx
 "use client";
 import { useState, useEffect } from "react";
-import { 
-  Plus, 
-  Edit, 
-  Trash2, 
-  X, 
-  Eye, 
-  Phone, 
+import {
+  Plus,
+  Edit,
+  Trash2,
+  X,
+  Eye,
+  Phone,
   BarChart,
   Clock,
   CheckCircle,
@@ -173,28 +173,28 @@ export default function Dashboard() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (editingBusiness) {
-      const updatedBusinesses = businesses.map(business => 
-        business.id === editingBusiness.id 
-          ? { 
-              ...business, 
-              name: formData.name || business.name,
-              category: formData.category || business.category,
-              subcategory: formData.subcategory || business.subcategory,
-              location: formData.location || business.location,
-              address: formData.address || business.address,
-              phone: formData.phone || business.phone,
-              email: formData.email || business.email,
-              website: formData.website || business.website,
-              description: formData.description || business.description,
-              price: formData.price || business.price,
-              image: formData.image || business.image,
-              hours: formData.hours || business.hours,
-              amenities: formData.amenities || business.amenities,
-              tags: formData.tags || business.tags,
-              updatedAt: new Date().toISOString()
-            } as Business
+      const updatedBusinesses = businesses.map(business =>
+        business.id === editingBusiness.id
+          ? {
+            ...business,
+            name: formData.name || business.name,
+            category: formData.category || business.category,
+            subcategory: formData.subcategory || business.subcategory,
+            location: formData.location || business.location,
+            address: formData.address || business.address,
+            phone: formData.phone || business.phone,
+            email: formData.email || business.email,
+            website: formData.website || business.website,
+            description: formData.description || business.description,
+            price: formData.price || business.price,
+            image: formData.image || business.image,
+            hours: formData.hours || business.hours,
+            amenities: formData.amenities || business.amenities,
+            tags: formData.tags || business.tags,
+            updatedAt: new Date().toISOString()
+          } as Business
           : business
       );
       setBusinesses(updatedBusinesses);
@@ -224,7 +224,7 @@ export default function Dashboard() {
       setBusinesses([...businesses, newBusiness]);
       alert("Business added successfully!");
     }
-    
+
     resetForm();
   };
 
@@ -301,8 +301,8 @@ export default function Dashboard() {
 
   const filteredBusinesses = businesses.filter(business => {
     const matchesSearch = business.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          business.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          business.location.toLowerCase().includes(searchTerm.toLowerCase());
+      business.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      business.location.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === "All" || business.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -312,54 +312,50 @@ export default function Dashboard() {
   const popularBusiness = businesses.length > 0 ? [...businesses].sort((a, b) => (b.views || 0) - (a.views || 0))[0] : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
-      
+    <div className="min-h-screen mt-20 bg-gradient-to-br from-gray-50 via-white to-gray-100">
+
       {/* Mobile Sidebar Overlay */}
       {showSidebar && (
         <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setShowSidebar(false)} />
       )}
 
       {/* Sidebar - Mobile Responsive */}
-      <div 
+      <div
         id="sidebar"
-        className={`fixed top-0 left-0 h-full bg-gradient-to-b from-gray-900 to-gray-800 text-white transition-all duration-300 z-50 ${
-          showSidebar ? 'w-72' : '-translate-x-full md:translate-x-0 md:w-20'
-        }`}
+        className={`fixed top-0 left-0 h-full bg-gradient-to-b from-gray-900 to-gray-800 text-white transition-all duration-300 z-50 ${showSidebar ? 'w-72' : '-translate-x-full md:translate-x-0 md:w-20'
+          }`}
       >
         <div className="p-4 border-b border-gray-700 flex justify-between items-center">
           {showSidebar && <h1 className="text-xl font-bold">Dashboard</h1>}
-          <button 
-            onClick={() => setShowSidebar(!showSidebar)} 
+          <button
+            onClick={() => setShowSidebar(!showSidebar)}
             className="p-2 hover:bg-gray-700 rounded-lg transition-all"
           >
             {showSidebar ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
-        
+
         <nav className="p-4 space-y-2">
-          <button 
-            onClick={() => { setActiveTab("business"); setShowSidebar(false); }} 
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-              activeTab === "business" ? 'bg-blue-600' : 'hover:bg-gray-700'
-            }`}
+          <button
+            onClick={() => { setActiveTab("business"); setShowSidebar(false); }}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${activeTab === "business" ? 'bg-blue-600' : 'hover:bg-gray-700'
+              }`}
           >
             <Briefcase size={20} />
             {showSidebar && <span>My Businesses</span>}
           </button>
-          <button 
-            onClick={() => { setActiveTab("analytics"); setShowSidebar(false); }} 
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-              activeTab === "analytics" ? 'bg-blue-600' : 'hover:bg-gray-700'
-            }`}
+          <button
+            onClick={() => { setActiveTab("analytics"); setShowSidebar(false); }}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${activeTab === "analytics" ? 'bg-blue-600' : 'hover:bg-gray-700'
+              }`}
           >
             <BarChart size={20} />
             {showSidebar && <span>Analytics</span>}
           </button>
-          <button 
-            onClick={() => { setShowProfile(true); setShowSidebar(false); }} 
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-              showProfile ? 'bg-blue-600' : 'hover:bg-gray-700'
-            }`}
+          <button
+            onClick={() => { setShowProfile(true); setShowSidebar(false); }}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${showProfile ? 'bg-blue-600' : 'hover:bg-gray-700'
+              }`}
           >
             <User size={20} />
             {showSidebar && <span>Profile</span>}
@@ -369,7 +365,7 @@ export default function Dashboard() {
 
       {/* Main Content */}
       <div className="md:ml-20">
-        
+
         {/* Mobile Header */}
         <div className="sticky top-0 z-30 bg-white shadow-sm">
           <div className="px-4 py-3">
@@ -405,7 +401,7 @@ export default function Dashboard() {
         </div>
 
         <div className="p-4 sm:p-6 lg:p-8">
-          
+
           {/* Business Management Tab */}
           {activeTab === "business" && (
             <>
@@ -686,7 +682,7 @@ export default function Dashboard() {
                     type="text"
                     required
                     value={formData.name}
-                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                   />
                 </div>
@@ -695,7 +691,7 @@ export default function Dashboard() {
                   <select
                     required
                     value={formData.category}
-                    onChange={(e) => setFormData({...formData, category: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                   >
                     <option value="">Select Category</option>
@@ -710,7 +706,7 @@ export default function Dashboard() {
                     type="text"
                     required
                     value={formData.location}
-                    onChange={(e) => setFormData({...formData, location: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                   />
                 </div>
@@ -720,7 +716,7 @@ export default function Dashboard() {
                     type="tel"
                     required
                     value={formData.phone}
-                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                   />
                 </div>
@@ -729,7 +725,7 @@ export default function Dashboard() {
                   <textarea
                     rows={3}
                     value={formData.description}
-                    onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                   />
                 </div>
